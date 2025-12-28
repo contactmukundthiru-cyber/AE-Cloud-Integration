@@ -1,0 +1,37 @@
+{
+  "name": "cloudexport-ae-plugin",
+  "version": "1.0.0",
+  "description": "One-click cloud export for Adobe After Effects",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "package": "npm run clean && npm run build && node scripts/package.js"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "fflate": "^0.8.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "eslint": "^8.55.0",
+    "rimraf": "^5.0.5",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "author": "CloudExport",
+  "license": "MIT"
+}

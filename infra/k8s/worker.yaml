@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudexport-worker
+  namespace: cloudexport
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudexport-worker
+  template:
+    metadata:
+      labels:
+        app: cloudexport-worker
+    spec:
+      containers:
+        - name: worker
+          image: cloudexport/worker:latest
+          envFrom:
+            - configMapRef:
+                name: cloudexport-config
+            - secretRef:
+                name: cloudexport-secrets
+          resources:
+            limits:
+              nvidia.com/gpu: 1

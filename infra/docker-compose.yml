@@ -1,0 +1,92 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: cloudexport
+      POSTGRES_PASSWORD: cloudexport
+      POSTGRES_DB: cloudexport
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - '6379:6379'
+
+  minio:
+    image: minio/minio:RELEASE.2024-02-29T00-00-00Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio-data:/data
+
+  minio-init:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set cloudexport http://minio:9000 minioadmin minioadmin &&
+      /usr/bin/mc mb -p cloudexport/cloudexport &&
+      /usr/bin/mc anonymous set download cloudexport/cloudexport
+      "
+
+  api:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg2://cloudexport:cloudexport@postgres:5432/cloudexport
+      REDIS_URL: redis://redis:6379/0
+      S3_ENDPOINT_URL: http://minio:9000
+      S3_BUCKET: cloudexport
+      S3_ACCESS_KEY_ID: minioadmin
+      S3_SECRET_ACCESS_KEY: minioadmin
+      S3_USE_SSL: 'false'
+      API_BASE_URL: http://localhost:8000
+      DASHBOARD_URL: http://localhost:8000/dashboard
+      JWT_SECRET: change-me
+      BOOTSTRAP_API_KEY: cloudexport-dev-key
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres
+      - redis
+      - minio
+
+  worker:
+    build:
+      context: ..
+      dockerfile: worker/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg2://cloudexport:cloudexport@postgres:5432/cloudexport
+      REDIS_URL: redis://redis:6379/0
+      S3_ENDPOINT_URL: http://minio:9000
+      S3_BUCKET: cloudexport
+      S3_ACCESS_KEY_ID: minioadmin
+      S3_SECRET_ACCESS_KEY: minioadmin
+      S3_USE_SSL: 'false'
+      GPU_CLASS: rtx4090
+      AERENDER_PATH: /opt/Adobe/AfterEffects/aerender
+    depends_on:
+      - redis
+      - api
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  postgres-data:
+  minio-data:

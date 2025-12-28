@@ -1,0 +1,77 @@
+{
+  "manifestVersion": 5,
+  "id": "com.cloudexport.aftereffects",
+  "name": "CloudExport",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "host": [
+    {
+      "app": "AEFT",
+      "minVersion": "23.0"
+    }
+  ],
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "cloudexport.panel",
+      "label": {
+        "default": "Cloud Export"
+      },
+      "minimumSize": {
+        "width": 320,
+        "height": 480
+      },
+      "maximumSize": {
+        "width": 600,
+        "height": 800
+      },
+      "preferredDockedSize": {
+        "width": 360,
+        "height": 520
+      },
+      "preferredFloatingSize": {
+        "width": 400,
+        "height": 600
+      },
+      "icons": [
+        {
+          "width": 24,
+          "height": 24,
+          "path": "assets/icon-24.png",
+          "scale": [1, 2],
+          "theme": ["darkest", "dark", "light", "lightest"]
+        }
+      ]
+    }
+  ],
+  "requiredPermissions": {
+    "localFileSystem": "fullAccess",
+    "network": {
+      "domains": [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "ws://localhost:8000",
+        "ws://127.0.0.1:8000",
+        "https://api.cloudexport.io",
+        "https://*.cloudexport.io",
+        "wss://ws.cloudexport.io",
+        "https://*.amazonaws.com",
+        "https://*.storage.googleapis.com"
+      ]
+    },
+    "clipboard": "readAndWrite",
+    "webview": {
+      "allow": "yes",
+      "domains": ["https://*.cloudexport.io"]
+    }
+  },
+  "icons": [
+    {
+      "width": 48,
+      "height": 48,
+      "path": "assets/icon-48.png",
+      "scale": [1, 2],
+      "theme": ["darkest", "dark", "light", "lightest"]
+    }
+  ]
+}

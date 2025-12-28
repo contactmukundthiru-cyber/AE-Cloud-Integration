@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudexport-config
+  namespace: cloudexport
+data:
+  DATABASE_URL: postgresql+psycopg2://cloudexport:cloudexport@postgres:5432/cloudexport
+  REDIS_URL: redis://redis:6379/0
+  S3_ENDPOINT_URL: http://minio:9000
+  S3_BUCKET: cloudexport
+  S3_REGION: us-east-1
+  API_BASE_URL: https://api.cloudexport.io
+  DASHBOARD_URL: https://api.cloudexport.io/dashboard
+  GPU_CLASS: rtx4090
+  AERENDER_PATH: /opt/Adobe/AfterEffects/aerender

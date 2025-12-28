@@ -1,0 +1,139 @@
+:root {
+  --bg: #0c0f14;
+  --panel: #151b24;
+  --accent: #ffb347;
+  --accent-2: #2ec4b6;
+  --text: #f7f7f7;
+  --muted: #99a3b3;
+  --border: #1f2a38;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Fira Sans', sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #18202b 0%, #0c0f14 70%);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.auth {
+  display: flex;
+  gap: 10px;
+}
+
+.auth input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.auth button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #151515;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.card span {
+  display: block;
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.jobs h2 {
+  margin: 0 0 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.action-btn {
+  background: transparent;
+  border: 1px solid var(--accent-2);
+  color: var(--accent-2);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

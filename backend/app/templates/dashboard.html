@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CloudExport Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>CloudExport Dashboard</h1>
+          <p>Track your cloud renders, costs, and downloads.</p>
+        </div>
+        <div class="auth">
+          <input id="apiKey" type="password" placeholder="API Key" />
+          <button id="saveKey">Connect</button>
+        </div>
+      </header>
+      <section class="metrics">
+        <div class="card">
+          <h2>Active Jobs</h2>
+          <span id="activeCount">0</span>
+        </div>
+        <div class="card">
+          <h2>Completed</h2>
+          <span id="completedCount">0</span>
+        </div>
+        <div class="card">
+          <h2>Total Spend</h2>
+          <span id="totalSpend">$0.00</span>
+        </div>
+      </section>
+      <section class="jobs">
+        <h2>Job History</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Job ID</th>
+              <th>Status</th>
+              <th>Preset</th>
+              <th>Created</th>
+              <th>Cost</th>
+              <th>Output</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="jobsBody"></tbody>
+        </table>
+      </section>
+    </main>
+    <script src="/static/dashboard.js"></script>
+  </body>
+</html>
